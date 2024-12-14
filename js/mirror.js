@@ -2,8 +2,7 @@ var mirror = {
     interval: 60000,
 }
 var isInitTable = false;
-var classListCustom = [
-    {
+var classListCustom = [{
         isMirrName: true
     },
     {
@@ -139,34 +138,47 @@ var sortConfig = {
     direction: 'asc'
 };
 
+// 存储帮助内容的对象
+var helpContents = {};
+
 // 在 document ready 时初始化筛选器
-$(document).ready(function() {
-    // 发起请求获取 Alpine 帮助内容
-    $.ajax({
-        url: 'http://localhost:8080/api/anthon.json',
-        data: { 
-            mirror: 'ISRC-ISCAS'
-        },
-        method: 'GET',
-        xhrFields: {
-            withCredentials: true
-        },
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        success: function(response) {
-            console.log('Help content:', response);
-        },
-        error: function(xhr, status, error) {
-            console.error('Failed to fetch help:', error);
-            console.error('Status:', status);
-            console.error('Response:', xhr.responseText);
+$(document).ready(function () {
+    // 遍历 mirrorHelpList 发起请求
+    Object.keys(mirrorHelpList).forEach(function (mirrorName) {
+        // 检查是否有帮助链接
+        if (mirrorHelpList[mirrorName]) {
+            $.ajax({
+                url: `http://localhost:8080/api/${mirrorName}.json`,
+                data: {
+                    mirror: 'ISRC-ISCAS'
+                },
+                method: 'GET',
+                xhrFields: {
+                    withCredentials: true
+                },
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                success: function (response) {
+                    // 存储帮助内容
+                    if (response.pageProps && response.pageProps.content) {
+                        helpContents[mirrorName] = response.pageProps.content;
+                        // 更新对应的悬浮框内容
+                        updateTooltipContent(mirrorName, response.pageProps.content);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(`Failed to fetch help for ${mirrorName}:`, error);
+                    console.error('Status:', status);
+                    console.error('Response:', xhr.responseText);
+                }
+            });
         }
     });
 
     // 监听复选框变化
-    $('.filter-option input[type="checkbox"]').on('change', function() {
+    $('.filter-option input[type="checkbox"]').on('change', function () {
         const value = $(this).val();
         if (this.checked) {
             if (!selectedStatuses.includes(value)) {
@@ -178,38 +190,38 @@ $(document).ready(function() {
     });
 
     // 在 document ready 时添加筛选图标点击事件
-    $('.filter-icon').on('click', function(e) {
+    $('.filter-icon').on('click', function (e) {
         e.stopPropagation();
         const filterPopup = $('.filter-popup');
         const icon = $(this);
         const iconPos = icon.offset();
         const iconHeight = icon.outerHeight();
-        
+
         filterPopup.css({
             display: 'block',
             top: iconPos.top + iconHeight + 5,
-            left: iconPos.left - 50  // 调整位置使弹窗居中于图标
+            left: iconPos.left - 50 // 调整位置使弹窗居中于图标
         });
     });
 
     // 点击其他地方时隐藏筛选器
-    $(document).on('click', function(e) {
+    $(document).on('click', function (e) {
         if (!$(e.target).closest('.filter-popup, .filter-icon').length) {
             $('.filter-popup').hide();
         }
     });
 
     // 监听确定按钮点击
-    $('.filter-confirm').on('click', function() {
+    $('.filter-confirm').on('click', function () {
         filterTable();
         $('.filter-popup').hide();
     });
 
     // 添加排序图标点击事件
-    $('.sort-icon').on('click', function() {
+    $('.sort-icon').on('click', function () {
         const column = $(this).data('sort');
         const $icon = $(this);
-        
+
         // 切换排序方向
         if (sortConfig.column === column) {
             sortConfig.direction = sortConfig.direction === 'asc' ? 'desc' : 'asc';
@@ -217,14 +229,14 @@ $(document).ready(function() {
             sortConfig.column = column;
             sortConfig.direction = 'asc';
         }
-        
+
         // 更新图标状态
         $('.sort-icon').removeClass('asc desc');
         $icon.addClass(sortConfig.direction);
-        
+
         // 执行排序
         sortTable(column, sortConfig.direction);
-        
+
         // 调试日志
         console.log('Sorting:', {
             column,
@@ -236,11 +248,11 @@ $(document).ready(function() {
 // 添加筛选表格函数
 function filterTable() {
     const rows = $('#distro-table tbody tr');
-    
-    rows.each(function() {
+
+    rows.each(function () {
         const statusButton = $(this).find('.sync-status');
         const status = getStatusFromButton(statusButton);
-        
+
         if (status && selectedStatuses.includes(status)) {
             $(this).show();
         } else {
@@ -274,9 +286,9 @@ mirror.update = function update() {
         !isInitTable && createdynamicDom(dataTmp.length, dataTmp);
         for (var i = 0, n = dataTmp.length; i < n; i++) {
             var job = dataTmp[i];
-            var updateClass = "." + job.name.replaceAll(/\./g,'') + ".update-time";
-            var statusClass = "." + job.name.replaceAll(/\./g,'') + ".sync-status";
-            var sizeClass = "." + job.name.replaceAll(/\./g,'') + ".mirror-size";
+            var updateClass = "." + job.name.replaceAll(/\./g, '') + ".update-time";
+            var statusClass = "." + job.name.replaceAll(/\./g, '') + ".sync-status";
+            var sizeClass = "." + job.name.replaceAll(/\./g, '') + ".mirror-size";
             $(updateClass).html(job.last_update.substring(0, 19));
             $(statusClass).html(statusMap.get(job.status));
             $(sizeClass).html(job.size);
@@ -298,7 +310,7 @@ function createdynamicDom(colCount, data) {
             if (classListCustom[j].className === 'sync-status') {
                 var button = document.createElement('button');
                 var statusClass = '';
-                switch(job.status) {
+                switch (job.status) {
                     case 'success':
                         statusClass = 'success';
                         break;
@@ -321,13 +333,14 @@ function createdynamicDom(colCount, data) {
             } else if (classListCustom[j].isHelp) {
                 if (mirrorHelpList[job.name]) {
                     td.innerHTML = `
-                        <div class="help-container">
+                        <div class="help-container" data-mirror="${job.name}">
                             <span class="help-text">${job.name} 使用帮助</span>
                             <div class="help-icon">?
                                 <div class="help-tooltip">
-                                    <h4>${job.name} 镜像说明</h4>
-                                    <p>这是 ${job.name} 的镜像源。</p>
-                                    <p>点击"使用帮助"查看详细的使用说明。</p>
+                                    <div class="loading-container">
+                                        <div class="loading-spinner"></div>
+                                        <p class="loading-text">正在加载镜像源数据...</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>`;
@@ -353,27 +366,56 @@ mirror.init = function () {
 function sortTable(column, direction) {
     const tbody = $('#distro-table tbody');
     const rows = tbody.find('tr').toArray();
-    
+
     rows.sort((a, b) => {
         let aValue, bValue;
-        
+
         if (column === 'update-time') {
             aValue = $(a).find('.update-time').text();
             bValue = $(b).find('.update-time').text();
             // 日期比较
-            return direction === 'asc' ? 
+            return direction === 'asc' ?
                 new Date(aValue) - new Date(bValue) :
                 new Date(bValue) - new Date(aValue);
         }
         return 0;
     });
-    
+
     // 重新添加排序后的行
     tbody.empty();
     rows.forEach(row => tbody.append(row));
-    
+
     // 保持奇偶行的样式
     rows.forEach((row, index) => {
         $(row).removeClass('odd even').addClass(index % 2 === 0 ? 'odd' : 'even');
     });
+}
+
+// 更新悬浮框内容的函数
+function updateTooltipContent(mirrorName, content) {
+    const tooltip = $(`.help-container[data-mirror="${mirrorName}"] .help-tooltip`);
+    if (tooltip.length) {
+        if (!content) {
+            // 显示加载中的效果
+            tooltip.html(`
+                <div class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <p class="loading-text">正在加载镜像源数据...</p>
+                </div>
+            `);
+            return;
+        }
+        
+        tooltip.html(`
+            <main class="lnHxHM hWolbT">
+                <div class="gPumbX">
+                    <div class="klVKmx bXFcXE eqrBPF jdraHW cYpeTs gextfv gnWJUG">
+                        <article class="article_article__qbPLn hljs_hljs_container__HHjaI">
+                            ${content}
+                        </article>
+                    </div>
+                </div>
+            </main>
+        `);
+    }
 }
