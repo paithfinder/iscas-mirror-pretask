@@ -390,81 +390,97 @@ function sortTable(column, direction) {
 }
 
 // 更新悬浮框内容的函数
+// 在updateTooltipContent函数中传入mirrorName
+// 在updateTooltipContent函数中传入mirrorName
 function updateTooltipContent(mirrorName, pageProps) {
     const tooltip = $(`.help-container[data-mirror="${mirrorName}"] .tooltip-content`);
-
-
-// 1. 先解析 content 字符串
-const contentObj = JSON.parse(pageProps.content);
-// 2. 获取目标文本
-const targetText = contentObj[3].children
-
-
-console.log(targetText,'aaaaaaaaaaaaaaaaaaaaaab');
-
-
-  // 输出最后一个 CodeBlock 的 codeLanguage 属性
-
+    const contentObj = JSON.parse(pageProps.content);
+    const mirrorPath = `/${mirrorName}`;
 
     tooltip.html(`
         <div class="loading-container">
             <main>
                 <h3>${pageProps.meta?.title || `${mirrorName} 软件仓库镜像使用帮助`}</h3>
-                  <div>
-            ${generateTooltipContent(targetText)}
-        </div>
+                <div>
+                    ${generateTooltipContent(contentObj, mirrorPath)}
+                </div>
             </main>
         </div>
     `);
 }
-function generateTooltipContent(targetText) {
+function generateTooltipContent(targetText, mirrorPath) {
     let html = '<div class="toolTip-text">';
     
-    targetText.forEach(item => {
-        if (item === "\n") {
-            return; // 跳过换行符
+    // 递归处理内容
+    function renderContent(content) {
+        if (!content) return '';
+        
+        // 如果是字符串，直接返回
+        if (typeof content === 'string') {
+            return replaceVariables(content, mirrorPath);
         }
         
-        const type = item[1];
-        const content = item[3];
-        
-        switch(type) {
-            case 'h3':
-                html += `<h3>${content.children}</h3>`;
-                break;
+        // 如果是数组，递归处理每个元素
+        if (Array.isArray(content)) {
+            // 如果是特殊格式的数组 [$r, type, null, {...}]
+            if (content[0] === '$r' && content[1]) {
+                const type = content[1];
+                const props = content[3];
                 
-            case 'p':
-                html += '<p>';
-                if (Array.isArray(content.children)) {
-                    content.children.forEach(child => {
-                        // 检查child是否为数组或字符串
-                        if (typeof child === 'string') {
-                            html += child;
-                        } else if (Array.isArray(child) && child[1]) {
-                            switch(child[1]) {
-                                case 'code':
-                                    html += `<code>${child[3].children}</code>`;
-                                    break;
-                                case 'a':
-                                    html += `<a href="${child[3].href}">${child[3].children}</a>`;
-                                    break;
-                                default:
-                                    html += child[3]?.children || '';
-                            }
-                        }
-                    });
-                } else {
-                    html += content.children || '';
+                switch(type) {
+                    case 'p':
+                        return `<p>${renderContent(props.children)}</p>`;
+                        
+                    case 'h3':
+                        return `<h3>${renderContent(props.children)}</h3>`;
+                        
+                    case 'ul':
+                        return `<ul>${renderContent(props.children)}</ul>`;
+                        
+                    case 'li':
+                        return `<li>${renderContent(props.children)}</li>`;
+                        
+                    case 'code':
+                        return `<code>${renderContent(props.children)}</code>`;
+                        
+                    case 'strong':
+                        return `<strong>${renderContent(props.children)}</strong>`;
+                        
+                    case 'SyntaxHighlight':
+                    case 'CodeBlock':
+                        return `<pre><code class="language-${props.codeLanguage || ''}">${replaceVariables(props.code, mirrorPath)}</code></pre>`;
+                        
+                    case 'a':
+                        return `<a href="${props.href}">${renderContent(props.children)}</a>`;
+                        
+                    default:
+                        return renderContent(props.children);
                 }
-                html += '</p>';
-                break;
-                
-            case 'CodeBlock':
-                html += `<pre><code class="language-${content.codeLanguage || ''}">${content.code}</code></pre>`;
-                break;
+            }
+            
+            // 普通数组，处理每个元素
+            return content.map(item => renderContent(item)).join('');
         }
-    });
+        
+        // 如果是对象，处理其children属性
+        if (content.children) {
+            return renderContent(content.children);
+        }
+        
+        return '';
+    }
     
+    html += renderContent(targetText);
     html += '</div>';
     return html;
+}
+function replaceVariables(text, mirrorPath) {
+    if (typeof text !== 'string') return text;
+    
+    return text
+        .replace(/{{http_protocol}}/g, 'https://mirror.iscas.ac.cn')
+        .replace(/{{mirror}}/g, mirrorPath)
+        .replace(/{{enable_checksum}}/g, '')
+        .replace(/\{\{[^}]+\}\}/g, '')
+        .replace(/\$r/g, ''); // 移除所有的$r
 }
