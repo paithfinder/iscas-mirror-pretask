@@ -33,10 +33,6 @@ var mirrorHelpList = {
     'bioconductor': 'https://help.mirrors.cernet.edu.cn/bioconductor/?mirror=ISRC-ISCAS',
     'blackarch': 'https://help.mirrors.cernet.edu.cn/blackarch/?mirror=ISRC-ISCAS',
     'centos': 'https://help.mirrors.cernet.edu.cn/centos/?mirror=ISRC-ISCAS',
-<<<<<<< HEAD
-=======
-
->>>>>>> d700347492557289e01f9e274bc26e12528aadf2
     'centos-vault': 'https://help.mirrors.cernet.edu.cn/centos-vault/?mirror=ISRC-ISCAS',
     'ceph': 'https://help.mirrors.cernet.edu.cn/ceph/?mirror=ISRC-ISCAS',
     'chef': 'https://help.mirrors.cernet.edu.cn/chef/?mirror=ISRC-ISCAS',
@@ -164,17 +160,12 @@ $(document).ready(function () {
                     'Content-Type': 'application/json'
                 },
                 success: function (response) {
-<<<<<<< HEAD
+
                     if (response.pageProps) {
                         console.log(response.pageProps)
                         updateTooltipContent(mirrorName, response.pageProps)
-=======
-                    // 存储帮助内容
-                    if (response.pageProps ) {
-                      console.log(response.pageProps)
-                      updateTooltipContent(mirrorName, response.pageProps)
->>>>>>> d700347492557289e01f9e274bc26e12528aadf2
                     }
+                    // 存储帮助内容
                 },
                 error: function (xhr, status, error) {
                     console.error(`Failed to fetch help for ${mirrorName}:`, error);
@@ -253,7 +244,7 @@ $(document).ready(function () {
     });
 });
 
-// 添加筛选表格函数
+// 添��筛选表格函数
 function filterTable() {
     const rows = $('#distro-table tbody tr');
 
@@ -346,10 +337,7 @@ function createdynamicDom(colCount, data) {
                             <div class="help-icon">?
                                 <div class="help-tooltip">
                                     <div class="tooltip-content">
-                                        <div class="loading-container">
-                                            <div class="loading-spinner"></div>
-                                            <p class="loading-text">正在加载镜像源数据...</p>
-                                        </div>
+                                        正在加载镜像源数据...
                                     </div>
                                 </div>
                             </div>
@@ -404,69 +392,79 @@ function sortTable(column, direction) {
 // 更新悬浮框内容的函数
 function updateTooltipContent(mirrorName, pageProps) {
     const tooltip = $(`.help-container[data-mirror="${mirrorName}"] .tooltip-content`);
-    if (tooltip.length) {
-        if (!pageProps) {
-            tooltip.html(`
-                <div class="loading-container">
-                             <main>
-  <div class="title">
-    <h1>Alpine 软件仓库镜像使用帮助</h1>
-  </div>
 
-  <div class="content">
-    <blockquote>
-      <p>Alpine Linux 是一个面向安全，轻量级的基于 musl libc 与 busybox 项目的 Linux 发行版。</p>
-    </blockquote>
 
-    <p>在终端输入以下命令以替换镜像源：</p>
-    <pre><code>sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirror.iscas.ac.cn/alpine#g' /etc/apk/repositories</code></pre>
+// 1. 先解析 content 字符串
+const contentObj = JSON.parse(pageProps.content);
+// 2. 获取目标文本
+const targetText = contentObj[3].children
 
-    <p>也可以直接编辑 <code>/etc/apk/repositories</code> 文件。以下是 v3.5 版本的参考配置：</p>
-    <pre><code>https://mirror.iscas.ac.cn/alpine/v3.5/main
-https://mirror.iscas.ac.cn/alpine/v3.5/community</code></pre>
 
-    <p>也可以使用 <code>latest-stable</code> 指向最新的稳定版本：</p>
-    <pre><code>https://mirror.iscas.ac.cn/alpine/latest-stable/main
-https://mirror.iscas.ac.cn/alpine/latest-stable/community</code></pre>
+console.log(targetText,'aaaaaaaaaaaaaaaaaaaaaab');
 
-    <p>更改完 <code>/etc/apk/repositories</code> 文件后请运行 <code>apk update</code> 更新索引以生效。</p>
-  </div>
 
-  <footer>
-    <div class="footer-content">
-      <p>© 2024 MirrorZ Project</p>
-    </div>
-  </footer>
-</main>
-                </div>
-            `);
-            return;
+  // 输出最后一个 CodeBlock 的 codeLanguage 属性
+
+
+    tooltip.html(`
+        <div class="loading-container">
+            <main>
+                <h3>${pageProps.meta?.title || `${mirrorName} 软件仓库镜像使用帮助`}</h3>
+                  <div>
+            ${generateTooltipContent(targetText)}
+        </div>
+            </main>
+        </div>
+    `);
+}
+function generateTooltipContent(targetText) {
+    let html = '<div class="toolTip-text">';
+    
+    targetText.forEach(item => {
+        if (item === "\n") {
+            return; // 跳过换行符
         }
         
-<<<<<<< HEAD
-        // 直接使用API返回的内容
-        tooltip.html(pageProps.content);
-=======
-        // 使用API返回的实际内容更新悬浮框
-        tooltip.html(`
-            <main class="lnHxHM hWolbT">
-                <div class="gPumbX">
-                    <div class="klVKmx bXFcXE eqrBPF jdraHW cYpeTs gextfv gnWJUG">
-                        <article class="article_article__qbPLn hljs_hljs_container__HHjaI">
-                            ${pageProps.content}
-                        </article>
-                    </div>
-                </div>
-            </main>
-        `);
->>>>>>> d700347492557289e01f9e274bc26e12528aadf2
-
-        // 添加调试日志
-        console.log(`Updated tooltip for ${mirrorName}:`, {
-            tooltipElement: tooltip,
-            content: pageProps.content
-        });
-    } else {
-        console.warn(`Tooltip element not found for ${mirrorName}`);
-    }
+        const type = item[1];
+        const content = item[3];
+        
+        switch(type) {
+            case 'h3':
+                html += `<h3>${content.children}</h3>`;
+                break;
+                
+            case 'p':
+                html += '<p>';
+                if (Array.isArray(content.children)) {
+                    content.children.forEach(child => {
+                        // 检查child是否为数组或字符串
+                        if (typeof child === 'string') {
+                            html += child;
+                        } else if (Array.isArray(child) && child[1]) {
+                            switch(child[1]) {
+                                case 'code':
+                                    html += `<code>${child[3].children}</code>`;
+                                    break;
+                                case 'a':
+                                    html += `<a href="${child[3].href}">${child[3].children}</a>`;
+                                    break;
+                                default:
+                                    html += child[3]?.children || '';
+                            }
+                        }
+                    });
+                } else {
+                    html += content.children || '';
+                }
+                html += '</p>';
+                break;
+                
+            case 'CodeBlock':
+                html += `<pre><code class="language-${content.codeLanguage || ''}">${content.code}</code></pre>`;
+                break;
+        }
+    });
+    
+    html += '</div>';
+    return html;
 }

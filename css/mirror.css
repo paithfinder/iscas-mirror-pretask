@@ -1,8 +1,4 @@
-/* CSS file for 163 mirror site. http://mirrors.163.com/
- * * Copyright (c) 2009, Netease corp.
- * * This work is under Creative Common Attribution 2.5 China Mainland License.
- * */
- body{
+body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: .9em;
   margin: 0;
@@ -12,27 +8,33 @@
   display: flex;
   flex-direction: column;
 }
+
 tr.even {
   background:#EEE;
 }
+
 table th,td {
   padding: 1rem;
   border-bottom: 1px solid #e9ecef;
   text-align: center;
 }
+
 th {
   text-align: center;
   font-weight: bold;
   background: #EEE;
   border-bottom: 1px solid #aaa;
 }
+
 a {
   color: #ed6d00;
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: underline;
 }
+
 table {
   border: none;
   border-radius: 12px;
@@ -40,7 +42,6 @@ table {
   background: white;
   width: 90%;
   max-width: 1200px;
-  margin-bottom: 20px;
   margin: 0 auto 2rem;
   overflow: hidden;
 }
@@ -54,20 +55,8 @@ code {
   background-color: #f9f2f4;
   border-radius: 4px;
 }
-label {
-  display: inline-block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-#mirror-data, #mirror-usage, #mirror-links, #mirror-misc {
-  margin-top: 20px;
-  padding-bottom: 10px;
-}
-h3 {
-  color: rgb(0, 0, 205);
 
-}
-.title{
+.title {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,27 +65,24 @@ h3 {
   box-shadow: 0 2px 15px rgba(0,0,0,0.1);
   margin-bottom: 2rem;
 }
+
 .title h1 {
   color: #2c3e50;
   font-size: 2.2rem;
   margin: 0 1rem;
 }
+
 #logo {
   width: 150px;
   padding: 0 2rem;
 }
+
 #logo img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
-.hr {
-  border-bottom: dashed #777 1px;
-  width: 60%;
-}
-.hr hr {
-  display: none;
-}
+
 #footer {
   text-align: center;
   margin-top: auto;
@@ -105,36 +91,7 @@ h3 {
   box-shadow: 0 -2px 15px rgba(0,0,0,0.05);
   clear: both;
 }
-#footer a {
-  color: #555;
-  margin: 0px 10px;
-  font-size: 0.9em;
-}
-pre {
-  font-family: monospace;
-  font-size: 110%;
-  color: dimgrey;
-  border:1px dashed black;
-  background-color: #F7F7F7;
-  margin: 0px;
-  padding: 8px;
-  width: 800px;
-  line-height: 150%;
-  overflow:auto;
-}
-p.answer {
-  text-indent: 20px;
-  margin-bottom: 30px;
-}
-#distro-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-#copyright {
-  color: #555;
-  margin: 0px 10px;
-  font-size: 0.8em;
-}
+
 .sync-status {
   border-radius: 5px;
   border: none;
@@ -198,559 +155,98 @@ p.answer {
 }
 
 @keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.help-content {
-    margin-top: 20px;
-    padding: 15px;
-    background: #f9f9f9;
-    border: 1px solid #eee;
-    border-radius: 4px;
-}
-
-.help-content pre {
-    background: #f5f5f5;
-    padding: 10px;
-    border-radius: 4px;
-    overflow-x: auto;
-}
-
-.help-content code {
-    font-family: Consolas, Monaco, 'Andale Mono', monospace;
-}
-
-.mirror-help {
-    line-height: 1.6;
-}
-
-.mirror-help p {
-    margin-bottom: 1em;
-}
-
-#mirror-usage {
-    position: relative;
-}
-
-#mirror-help-content {
-    max-height: 600px;
-    overflow-y: auto;
-    display: block;
-    margin-top: 20px;
-    padding: 15px;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#mirror-help-content.active {
-    display: block;
-}
-
-#help-content {
-    padding: 20px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin: 20px auto;
-    max-width: 800px;
-}
-
-#help-content blockquote {
-    border-left: 4px solid #eee;
-    padding-left: 15px;
-    margin: 0 0 20px;
-    color: #666;
-}
-
-#help-content code {
-    background-color: #f5f5f5;
-    padding: 2px 4px;
-    border-radius: 4px;
-}
-
-#help-content pre {
-    background-color: #f5f5f5;
-    padding: 15px;
-    border-radius: 4px;
-    overflow-x: auto;
-    margin: 15px 0;
-}
-
-.help-wrapper {
-    line-height: 1.6;
-}
-
-.filter-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto 1rem;
-    background: white;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-
-.filter-group {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.filter-group label {
-    color: #2c3e50;
-    font-weight: 500;
-}
-
-.checkbox-group {
-    display: flex;
-    gap: 1.5rem;
-}
-
-.checkbox-label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    user-select: none;
-}
-
-.checkbox-label input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
-
-.filter-button {
-
-    background: #3498db;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.2s ease;
-}
-
-.filter-button:hover {
-    background: #2980b9;
-}
-
-.status-header {
-    width: 4.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    gap: 4px;
-}
-
-.filter-icon {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-    margin-left: 2px;
-}
-
-.filter-icon:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.filter-icon svg {
-    fill: #666;
-}
-
-.filter-icon:hover svg {
-    fill: #333;
-}
-
-th span {
-  display: block;
-  margin: 0;
-  text-align: center;
-}
-
-th:first-child span {
-  text-align: center;
-  margin-left: 0;
-}
-
-.filter-popup {
-    position: absolute;
-    background: white;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    z-index: 1000;
-    min-width: 120px;
-    margin-top: 5px;
-}
-
-.filter-popup-content {
-    padding: 8px 0;
-}
-
-.filter-options {
-    border-bottom: 1px solid #eee;
-    padding: 4px 0;
-}
-
-.filter-option {
-    display: flex;
-    align-items: center;
-    padding: 8px 16px;
-    cursor: pointer;
-    user-select: none;
-    font-size: 14px;
-    color: #333;
-    position: relative;
-}
-
-.filter-option:hover {
-    background-color: #f5f7fa;
-}
-
-.filter-option input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-}
-
-.checkbox-custom {
-    width: 16px;
-    height: 16px;
-    border: 1px solid #dcdfe6;
-    border-radius: 2px;
-    margin-right: 8px;
-    position: relative;
-    background: white;
-}
-
-.filter-option input[type="checkbox"]:checked + .checkbox-custom::after {
-    content: '✓';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #409eff;
-    font-size: 12px;
-}
-
-.filter-actions {
-    padding: 8px 16px;
-    text-align: right;
-}
-
-.filter-confirm {
-    padding: 5px 16px;
-    background: #409eff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.filter-confirm:hover {
-    background: #66b1ff;
-}
-
-.sort-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-}
-
-.sort-icon {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 16px;
-    height: 16px;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-}
-
-.sort-icon:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.sort-icon svg {
-    fill: #666;
-    transition: all 0.2s ease;
-}
-
-.sort-icon:hover svg {
-    fill: #333;
-}
-
-.sort-icon.asc svg {
-    transform: rotate(0deg);
-}
-
-.sort-icon.desc svg {
-    transform: rotate(180deg);
-}
-
-/* 使用帮助列的样式 */
-td[class*="help"] {
-    color: #ed6d00;
-}
-
-.help-text {
-    color: #ed6d00;
-    cursor: pointer;
-    margin-right:5px;
-   
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .help-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.help-text {
+  color: #ed6d00;
+  cursor: pointer;
+  margin-right: 5px;
 }
 
 .help-icon {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #e0e0e0;
-    color: #666;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: help;
-    transition: all 0.2s ease;
-}
-
-.help-container:hover .help-icon {
-    background: #3498db;
-    color: white;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  color: #666;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+  transition: all 0.2s ease;
 }
 
 .help-tooltip {
-    position: absolute;
-    width: 300px;
-    background: white;
-    border-radius: 4px;
-    padding: 12px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.2s ease;
-    z-index: 1000;
-    text-align: left;
-    max-height: 300px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    
-    /* 智能定位逻辑 */
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 8px 0;
+  position: absolute;
+  width: 300px;
+  background: white;
+  border-radius: 4px;
+  padding: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s ease;
+  z-index: 1000;
+  text-align: left;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  margin-top: 8px;
 }
 
-/* 处理右侧溢出 */
-.help-tooltip.right-overflow {
-    left: auto;
-    right: 0;
-    transform: none;
+td:last-child .help-tooltip {
+  left: auto;
+  right: 0;
+  transform: none;
 }
 
-/* 处理左侧溢出 */
-.help-tooltip.left-overflow {
-    left: 0;
-    transform: none;
+td:first-child .help-tooltip {
+  left: 0;
+  transform: none;
 }
 
-/* 处理底部溢出 */
-.help-tooltip.bottom-overflow {
-    top: auto;
-    bottom: 100%;
-}
-
-/* 相应调整箭头位置 */
-.help-tooltip.bottom-overflow::before {
-    top: auto;
-    bottom: -6px;
-    border-color: white transparent transparent transparent;
-}
-
-.help-tooltip::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: -6px;
-    transform: translateX(-50%);
-    border-width: 6px;
-    border-style: solid;
-    border-color: transparent transparent white transparent;
+tr:nth-last-child(-n+3) .help-tooltip {
+  bottom: 100%;
+  top: auto;
+  margin-top: 0;
+  margin-bottom: 8px;
 }
 
 .help-container:hover .help-tooltip {
-    visibility: visible;
-    opacity: 1;
-}
-
-.help-tooltip h4 {
-    margin: 0 0 8px 0;
-    color: #2c3e50;
-    font-size: 14px;
-}
-
-.help-tooltip blockquote {
-    background: #f8f9fa;
-    border-left: 4px solid #dee2e6;
-    margin: 0 0 1rem;
-    padding: 0.5rem 1rem;
-}
-
-.help-tooltip blockquote p {
-    color: #495057;
-    margin: 0;
-}
-
-.help-tooltip p {
-    margin: 8px 0;
-    line-height: 1.6;
-    color: #333;
-}
-
-.help-tooltip code {
-    background: #f5f5f5;
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-size: 11px;
-    color: #333;
-    font-family: Consolas, Monaco, monospace;
-}
-
-.help-tooltip pre {
-    background: #f5f5f5;
-    padding: 8px;
-    border-radius: 4px;
-    margin: 8px 0;
-    overflow-x: hidden;
-    font-size: 12px;
-    line-height: 1.4;
-    white-space: pre-wrap;
-    width: 100%;
-    box-sizing: border-box;
-    word-break: break-all;
-}
-
-td {
-    position: relative;
+  visibility: visible;
+  opacity: 1;
 }
 
 .tooltip-content {
-    font-size: 12px;
-    line-height: 1.4;
-    color: #666;
-    max-height: 400px;
-    overflow-y: auto;
-    padding-right: 8px;
-    word-wrap: break-word;
-    white-space: normal;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #666;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 8px;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
-.tooltip-content .description {
-    margin-bottom: 8px;
-    color: #333;
+.toolTip-text p {
+  text-align: left;
 }
 
-.tooltip-content .description-cn {
-    margin-bottom: 16px;
-    color: #666;
-}
-
-.tooltip-content .usage {
-    font-size: 12px;
-}
-
-.tooltip-content .usage p {
-    margin: 8px 0;
-    color: #333;
-}
-
-.tooltip-content code {
-    background: #f5f5f5;
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-size: 11px;
-    color: #333;
-    display: inline-block;
-    max-width: 100%;
-    word-wrap: break-word;
-    white-space: pre-wrap;
-    word-break: break-all;
-    box-sizing: border-box;
-}
-
-.tooltip-content pre {
-    background: #f5f5f5;
-    padding: 8px;
-    border-radius: 4px;
-    margin: 8px 0;
-    overflow-x: auto;
-    white-space: pre-wrap;
-    font-family: Consolas, Monaco, monospace;
-}
-
-.tooltip-content h3 {
-    color: #333;
-    font-size: 14px;
-    font-weight: 600;
-    margin: 16px 0 8px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid #eee;
-}
-
-.tooltip-content h3:first-child {
-    margin-top: 0;
-}
-
-.tooltip-content p {
-    margin: 8px 0;
-    line-height: 1.6;
-}
-
-.tooltip-content code {
-    background: #f5f5f5;
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-size: 11px;
-    color: #333;
-    font-family: Consolas, Monaco, monospace;
-}
-
-.tooltip-content pre {
-    background: #f5f5f5;
-    padding: 8px;
-    border-radius: 4px;
-    margin: 8px 0;
-    overflow-x: auto;
-}
-
-.tooltip-content a {
-    color: #0366d6;
-    text-decoration: none;
-}
-
-.tooltip-content a:hover {
-    text-decoration: underline;
+.toolTip-text code {
+  text-align: left;
 }
 
 .loading-container {
@@ -758,8 +254,29 @@ td {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    text-align: center;
+    padding: 15px;
+    min-height: 150px;
+    background: #fff;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: calc(300px - 24px);
+}
+
+.loading-container main {
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.loading-container h3 {
+    font-size: 16px;
+    margin: 0 0 15px 0;
+    color: #333;
+    width: 100%;
+    text-align: left;
 }
 
 .loading-spinner {
@@ -768,14 +285,18 @@ td {
     border: 3px solid #f3f3f3;
     border-top: 3px solid #3498db;
     border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 10px;
+    animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(52, 152, 219, 0.2);
 }
 
 .loading-text {
     color: #666;
     font-size: 14px;
     margin: 0;
+    font-weight: 500;
+    text-align: center;
+    animation: pulse 2s ease-in-out infinite;
 }
 
 @keyframes spin {
@@ -783,4 +304,87 @@ td {
     100% { transform: rotate(360deg); }
 }
 
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.loading-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+    border-radius: 8px;
+    z-index: -1;
+}
+
+.loading-text::after {
+    content: '...';
+    animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: ''; }
+    40% { content: '.'; }
+    60% { content: '..'; }
+    80% { content: '...'; }
+}
+
+.toolTip-text {
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.toolTip-text p {
+    margin: 8px 0;
+    line-height: 1.6;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.toolTip-text code {
+    display: block;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 8px 0;
+    overflow-x: hidden;
+}
+
+.toolTip-text blockquote {
+    margin: 10px 0;
+    padding: 10px;
+    background: #f5f7fa;
+    border-left: 4px solid #3498db;
+    word-wrap: break-word;
+}
+
+.toolTip-text blockquote p {
+    margin: 0;
+}
+
+.help-tooltip::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+}
+
+.help-tooltip::before {
+    top: -12px;
+    border-bottom-color: white;
+}
+
+tr:nth-last-child(-n+3) .help-tooltip::before {
+    top: auto;
+    bottom: -12px;
+    border-bottom-color: transparent;
+    border-top-color: white;
+}
 
