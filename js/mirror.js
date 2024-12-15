@@ -33,7 +33,6 @@ var mirrorHelpList = {
     'bioconductor': 'https://help.mirrors.cernet.edu.cn/bioconductor/?mirror=ISRC-ISCAS',
     'blackarch': 'https://help.mirrors.cernet.edu.cn/blackarch/?mirror=ISRC-ISCAS',
     'centos': 'https://help.mirrors.cernet.edu.cn/centos/?mirror=ISRC-ISCAS',
-    'centos-altarch': 'https://help.mirrors.cernet.edu.cn/centos-altarch/?mirror=ISRC-ISCAS',
     'centos-vault': 'https://help.mirrors.cernet.edu.cn/centos-vault/?mirror=ISRC-ISCAS',
     'ceph': 'https://help.mirrors.cernet.edu.cn/ceph/?mirror=ISRC-ISCAS',
     'chef': 'https://help.mirrors.cernet.edu.cn/chef/?mirror=ISRC-ISCAS',
@@ -161,11 +160,9 @@ $(document).ready(function () {
                     'Content-Type': 'application/json'
                 },
                 success: function (response) {
-                    // 存储帮助内容
-                    if (response.pageProps && response.pageProps.content) {
-                        helpContents[mirrorName] = response.pageProps.content;
-                        // 更新对应的悬浮框内容
-                        updateTooltipContent(mirrorName, response.pageProps.content);
+                    if (response.pageProps) {
+                        console.log(response.pageProps)
+                        updateTooltipContent(mirrorName, response.pageProps)
                     }
                 },
                 error: function (xhr, status, error) {
@@ -337,9 +334,11 @@ function createdynamicDom(colCount, data) {
                             <span class="help-text">${job.name} 使用帮助</span>
                             <div class="help-icon">?
                                 <div class="help-tooltip">
-                                    <div class="loading-container">
-                                        <div class="loading-spinner"></div>
-                                        <p class="loading-text">正在加载镜像源数据...</p>
+                                    <div class="tooltip-content">
+                                        <div class="loading-container">
+                                            <div class="loading-spinner"></div>
+                                            <p class="loading-text">正在加载镜像源数据...</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -392,30 +391,56 @@ function sortTable(column, direction) {
 }
 
 // 更新悬浮框内容的函数
-function updateTooltipContent(mirrorName, content) {
-    const tooltip = $(`.help-container[data-mirror="${mirrorName}"] .help-tooltip`);
+function updateTooltipContent(mirrorName, pageProps) {
+    const tooltip = $(`.help-container[data-mirror="${mirrorName}"] .tooltip-content`);
     if (tooltip.length) {
-        if (!content) {
-            // 显示加载中的效果
+        if (!pageProps) {
             tooltip.html(`
                 <div class="loading-container">
-                    <div class="loading-spinner"></div>
-                    <p class="loading-text">正在加载镜像源数据...</p>
+                             <main>
+  <div class="title">
+    <h1>Alpine 软件仓库镜像使用帮助</h1>
+  </div>
+
+  <div class="content">
+    <blockquote>
+      <p>Alpine Linux 是一个面向安全，轻量级的基于 musl libc 与 busybox 项目的 Linux 发行版。</p>
+    </blockquote>
+
+    <p>在终端输入以下命令以替换镜像源：</p>
+    <pre><code>sed -i 's#https\?://dl-cdn.alpinelinux.org/alpine#https://mirror.iscas.ac.cn/alpine#g' /etc/apk/repositories</code></pre>
+
+    <p>也可以直接编辑 <code>/etc/apk/repositories</code> 文件。以下是 v3.5 版本的参考配置：</p>
+    <pre><code>https://mirror.iscas.ac.cn/alpine/v3.5/main
+https://mirror.iscas.ac.cn/alpine/v3.5/community</code></pre>
+
+    <p>也可以使用 <code>latest-stable</code> 指向最新的稳定版本：</p>
+    <pre><code>https://mirror.iscas.ac.cn/alpine/latest-stable/main
+https://mirror.iscas.ac.cn/alpine/latest-stable/community</code></pre>
+
+    <p>更改完 <code>/etc/apk/repositories</code> 文件后请运行 <code>apk update</code> 更新索引以生效。</p>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <p>© 2024 MirrorZ Project</p>
+    </div>
+  </footer>
+</main>
                 </div>
             `);
             return;
         }
         
-        tooltip.html(`
-            <main class="lnHxHM hWolbT">
-                <div class="gPumbX">
-                    <div class="klVKmx bXFcXE eqrBPF jdraHW cYpeTs gextfv gnWJUG">
-                        <article class="article_article__qbPLn hljs_hljs_container__HHjaI">
-                            ${content}
-                        </article>
-                    </div>
-                </div>
-            </main>
-        `);
+        // 直接使用API返回的内容
+        tooltip.html(pageProps.content);
+
+        // 添加调试日志
+        console.log(`Updated tooltip for ${mirrorName}:`, {
+            tooltipElement: tooltip,
+            content: pageProps.content
+        });
+    } else {
+        console.warn(`Tooltip element not found for ${mirrorName}`);
     }
 }
