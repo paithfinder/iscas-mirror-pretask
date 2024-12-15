@@ -33,6 +33,10 @@ var mirrorHelpList = {
     'bioconductor': 'https://help.mirrors.cernet.edu.cn/bioconductor/?mirror=ISRC-ISCAS',
     'blackarch': 'https://help.mirrors.cernet.edu.cn/blackarch/?mirror=ISRC-ISCAS',
     'centos': 'https://help.mirrors.cernet.edu.cn/centos/?mirror=ISRC-ISCAS',
+<<<<<<< HEAD
+=======
+
+>>>>>>> d700347492557289e01f9e274bc26e12528aadf2
     'centos-vault': 'https://help.mirrors.cernet.edu.cn/centos-vault/?mirror=ISRC-ISCAS',
     'ceph': 'https://help.mirrors.cernet.edu.cn/ceph/?mirror=ISRC-ISCAS',
     'chef': 'https://help.mirrors.cernet.edu.cn/chef/?mirror=ISRC-ISCAS',
@@ -160,9 +164,16 @@ $(document).ready(function () {
                     'Content-Type': 'application/json'
                 },
                 success: function (response) {
+<<<<<<< HEAD
                     if (response.pageProps) {
                         console.log(response.pageProps)
                         updateTooltipContent(mirrorName, response.pageProps)
+=======
+                    // 存储帮助内容
+                    if (response.pageProps ) {
+                      console.log(response.pageProps)
+                      updateTooltipContent(mirrorName, response.pageProps)
+>>>>>>> d700347492557289e01f9e274bc26e12528aadf2
                     }
                 },
                 error: function (xhr, status, error) {
@@ -432,8 +443,23 @@ https://mirror.iscas.ac.cn/alpine/latest-stable/community</code></pre>
             return;
         }
         
+<<<<<<< HEAD
         // 直接使用API返回的内容
         tooltip.html(pageProps.content);
+=======
+        // 使用API返回的实际内容更新悬浮框
+        tooltip.html(`
+            <main class="lnHxHM hWolbT">
+                <div class="gPumbX">
+                    <div class="klVKmx bXFcXE eqrBPF jdraHW cYpeTs gextfv gnWJUG">
+                        <article class="article_article__qbPLn hljs_hljs_container__HHjaI">
+                            ${pageProps.content}
+                        </article>
+                    </div>
+                </div>
+            </main>
+        `);
+>>>>>>> d700347492557289e01f9e274bc26e12528aadf2
 
         // 添加调试日志
         console.log(`Updated tooltip for ${mirrorName}:`, {
