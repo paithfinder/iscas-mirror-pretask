@@ -476,3 +476,511 @@ tr:nth-last-child(-n+3) .help-tooltip::before {
 .filter-confirm:hover {
     background: #66b1ff;
 }
+
+/* 下载区域样式 */
+.download-section {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* 标签页按钮样式 */
+.download-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #eee;
+  padding: 0 1rem;
+  justify-content: center;
+}
+
+.tab-btn {
+  padding: 1rem 2rem;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  color: #666;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.tab-btn:hover {
+  color: #1e88e5;
+}
+
+.tab-btn.active {
+  color: #1e88e5;
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #1e88e5;
+  transition: transform 0.3s ease;
+}
+
+/* 添加动画效果 */
+.tab-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #1e88e5;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.tab-btn:hover::after {
+  transform: scaleX(0.5);
+}
+
+.tab-btn.active:hover::after {
+  transform: scaleX(1);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .download-tabs {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
+  
+  .tab-btn {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* 面板切换动画 */
+.tab-panel {
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.tab-panel.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 下载卡片网格布局 */
+.download-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* 下载卡片样式 */
+.download-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.download-card:hover {
+  transform: translateY(-4px);
+}
+
+.download-card h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.download-card .version {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.download-card .download-btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #1e88e5;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+/* 默认隐藏content和footer */
+.content,
+#footer {
+    display: none;
+}
+
+/* 头部样式 */
+.header {
+    background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+
+}
+.logo-section h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    position: relative;
+    color:  #ed6d00 !important;
+    text-shadow: 
+    2px 2px 0 rgba(0,0,0,0.1),
+    -1px -1px 0 rgba(255,255,255,0.5);
+
+
+}
+#logo {
+    width: q;
+    height: auto;
+}
+
+#logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.logo-section h1 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* 导航标签样式 */
+.nav-tabs {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.tab-btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #666;
+    position: relative;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.tab-btn:hover {
+    color: #1e88e5;
+}
+
+.tab-btn.active {
+    color: #1e88e5;
+}
+
+.tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #1e88e5;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.tab-btn:hover::after {
+    transform: scaleX(0.5);
+}
+
+.tab-btn.active::after {
+    transform: scaleX(1);
+}
+
+/* 内容区域调整 */
+.container {
+    margin-top: 80px; /* 为固定定位的header留出空间 */
+    padding: 1rem;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .nav-tabs {
+        gap: 1rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .tab-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .container {
+        margin-top: 120px;
+    }
+}
+
+/* 面板切换动画 */
+.tab-panel {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.tab-panel.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 下拉菜单样式 */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.arrow {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid currentColor;
+    transition: transform 0.3s ease;
+}
+
+.dropdown.active .arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: white;
+    min-width: 160px;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+}
+
+.dropdown.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-content {
+    padding: 0.5rem 0;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.dropdown-item:hover {
+    color: #1e88e5;
+    background: rgba(30, 136, 229, 0.05);
+}
+
+/* 添加hover效果 */
+.dropdown-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+}
+
+/* 操作系统页面布局 */
+.os-container {
+    display: flex;
+    width:50%;
+    margin: 1rem auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    min-height: 80vh;
+}
+
+.os-sidebar {
+    width: 240px;
+    border-right: 1px solid #eee;
+    background: #f8f9fa;
+    border-radius: 8px 0 0 8px;
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #2c3e50;
+    border-bottom: 1px solid #eee;
+}
+
+.os-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.os-menu li {
+    padding: 0;
+}
+
+.os-menu a {
+    display: block;
+    padding: 0.8rem 1.5rem;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+
+.os-menu a:hover {
+    background: #eef2f7;
+    color: #1e88e5;
+    border-left-color: #1e88e5;
+}
+
+.os-menu a.active {
+    background: #e3f2fd;
+    color: #1e88e5;
+    border-left-color: #1e88e5;
+}
+
+.os-content {
+    flex: 1;
+    padding: 1.5rem;
+}
+
+.os-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.os-title {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.os-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.os-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.2s ease;
+}
+
+.os-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.os-card h3 {
+    margin: 0 0 1rem 0;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+.os-card .version {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.os-card .download-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #1e88e5;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.2s ease;
+}
+
+.os-card .download-btn:hover {
+    background: #1976d2;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .os-container {
+        flex-direction: column;
+    }
+    
+    .os-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .os-content {
+        padding: 1rem;
+    }
+}
+
+
+

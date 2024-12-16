@@ -14,13 +14,34 @@
 
 <body>
     <div class="container">
-        <div class="title">
-            <h1>欢迎访问</h1>
-            <div id="logo">
-                <img src="./images/iscaslogo.png" alt="ISCAS_logo" />
+        <div class="header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1>欢迎来到</h1>
+                    <div id="logo">
+                        <img src="./images/iscaslogo.png" alt="ISCAS_logo" />
+                    </div>
+                    <h1>开源镜像站</h1>
+                </div>
+                <div class="nav-tabs">
+                    <button class="tab-btn" data-tab="iso">镜像列表</button>
+                    <div class="dropdown">
+                        <button class="tab-btn dropdown-toggle" data-tab="mirror-download">
+                            获取安装镜像
+                            <span class="arrow"></span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-content">
+                                <div  class="dropdown-item" data-type="os">操作系统</div>
+                                <div  class="dropdown-item" data-type="apps">应用软件</div>
+                                <div  class="dropdown-item" data-type="fonts">字体</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h1>开源镜像站</h1>
         </div>
+
         <div class="content">
             <div class="filter-popup" style="display: none;">
                 <div class="filter-popup-content">
@@ -98,6 +119,23 @@
             <p>
                 <a target="_blank" href="https://beian.miit.gov.cn/"></a>京ICP备05046678号-1</a>
             </p>
+        </div>
+       
+    </div>
+    <div class="os-container" style="display: none;">
+        <div class="os-sidebar">
+            <div class="sidebar-header">操作系统列表</div>
+            <ul class="os-menu">
+                <!-- 这里的菜单项会通过JS动态生成 -->
+            </ul>
+        </div>
+        <div class="os-content">
+            <div class="os-header">
+                <h2 class="os-title">下载文件</h2>
+            </div>
+            <div class="os-list">
+                <!-- 这里的内容会通过JS动态生成 -->
+            </div>
         </div>
     </div>
 </body>
