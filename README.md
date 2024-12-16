@@ -13,7 +13,9 @@ https://mirrors.nju.edu.cn/
 
 https://mirrors.ustc.edu.cn/
 
-## 所需技能:
-HTML, JavaScript
+## 技术栈:
+html,css,js,jquery
+
+首页镜像源列表数据自行需配置nginx解决跨域问题
 
 
