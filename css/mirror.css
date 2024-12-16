@@ -484,7 +484,7 @@ tr:nth-last-child(-n+3) .help-tooltip::before {
   padding: 0 1rem;
 }
 
-/* 标签页按钮样式 */
+
 .download-tabs {
   display: flex;
   gap: 1rem;
@@ -525,7 +525,7 @@ tr:nth-last-child(-n+3) .help-tooltip::before {
   transition: transform 0.3s ease;
 }
 
-/* 添加动画效果 */
+
 .tab-btn::after {
   content: '';
   position: absolute;
@@ -546,7 +546,7 @@ tr:nth-last-child(-n+3) .help-tooltip::before {
   transform: scaleX(1);
 }
 
-/* 响应式调整 */
+
 @media (max-width: 768px) {
   .download-tabs {
     flex-direction: row;
@@ -561,7 +561,7 @@ tr:nth-last-child(-n+3) .help-tooltip::before {
   }
 }
 
-/* 面板切换动画 */
+
 .tab-panel {
   display: none;
   opacity: 0;
@@ -575,7 +575,6 @@ tr:nth-last-child(-n+3) .help-tooltip::before {
   transform: translateY(0);
 }
 
-/* 下载卡片网格布局 */
 .download-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -617,13 +616,13 @@ tr:nth-last-child(-n+3) .help-tooltip::before {
   font-size: 0.9rem;
 }
 
-/* 默认隐藏content和footer */
+
 .content,
 #footer {
     display: none;
 }
 
-/* 头部样式 */
+
 .header {
     background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
     box-shadow: 0 2px 15px rgba(0,0,0,0.1);
@@ -678,7 +677,7 @@ tr:nth-last-child(-n+3) .help-tooltip::before {
     font-weight: 500;
 }
 
-/* 导航标签样式 */
+
 .nav-tabs {
     display: flex;
     gap: 2rem;
@@ -725,13 +724,13 @@ tr:nth-last-child(-n+3) .help-tooltip::before {
     transform: scaleX(1);
 }
 
-/* 内容区域调整 */
+
 .container {
-    margin-top: 80px; /* 为固定定位的header留出空间 */
+    margin-top: 80px;
     padding: 1rem;
 }
 
-/* 响应式调整 */
+
 @media (max-width: 768px) {
     .header-content {
         flex-direction: column;
@@ -755,7 +754,7 @@ tr:nth-last-child(-n+3) .help-tooltip::before {
     }
 }
 
-/* 面板切换动画 */
+
 .tab-panel {
     display: none;
     opacity: 0;
@@ -769,7 +768,7 @@ tr:nth-last-child(-n+3) .help-tooltip::before {
     transform: translateY(0);
 }
 
-/* 下拉菜单样式 */
+
 .dropdown {
     position: relative;
     display: inline-block;
@@ -965,7 +964,7 @@ tr:nth-last-child(-n+3) .help-tooltip::before {
     background: #1976d2;
 }
 
-/* 响应式调整 */
+
 @media (max-width: 768px) {
     .os-container {
         flex-direction: column;

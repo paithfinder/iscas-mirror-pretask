@@ -391,7 +391,7 @@ function sortTable(column, direction) {
 
 // 更新悬浮框内容的函数
 // 在updateTooltipContent函数中传入mirrorName
-// 在updateTooltipContent函数中传入mirrorName
+
 function updateTooltipContent(mirrorName, pageProps) {
     const tooltip = $(`.help-container[data-mirror="${mirrorName}"] .tooltip-content`);
     const contentObj = JSON.parse(pageProps.content);
