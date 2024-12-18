@@ -16,6 +16,6 @@ https://mirrors.ustc.edu.cn/
 ## 技术栈:
 html,css,js,jquery
 
-首页镜像源列表数据自行需配置nginx解决跨域问题
+首页镜像源列表数据需自行配置nginx解决跨域问题
 
 
