@@ -16,9 +16,13 @@ https://mirrors.ustc.edu.cn/
 ## 技术栈:
 html,css,js,jquery
 
+<<<<<<< HEAD
 ## 其他说明：
 `pip install PyGithub`再执行ref.py文件 递归下载最新mdx文件覆盖到file目录下
 
 
+=======
+首页镜像源列表数据需自行配置nginx解决跨域问题
+>>>>>>> 9c5bdf268a84d82cb89424fa395bebfcdf3cc5b0
 
 
