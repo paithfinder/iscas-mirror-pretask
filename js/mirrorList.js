@@ -137,42 +137,26 @@ var sortConfig = {
     direction: 'asc'
 };
 
-// 存储帮助内容的对象
-var helpContents = {};
+
 
 // 在 document ready 时初始化筛选器
 $(document).ready(function () {
-    // 遍历 mirrorHelpList 发起请求
+    // 遍历 mirrorHelpList
     Object.keys(mirrorHelpList).forEach(function (mirrorName) {
-        // 检查是否有帮助链接
+        // 检查是否有帮助内容
         if (mirrorHelpList[mirrorName]) {
-            $.ajax({
-                url: `http://localhost:8080/api/${mirrorName}.json`,
-                data: {
-                    mirror: 'ISRC-ISCAS'
-                },
-                method: 'GET',
-                xhrFields: {
-                    withCredentials: true
-                },
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                success: function (response) {
-
-                    if (response.pageProps) {
-                        console.log(response.pageProps)
-                        updateTooltipContent(mirrorName, response.pageProps)
-                    }
-                    // 存储帮助内容
-                },
-                error: function (xhr, status, error) {
-                    console.error(`Failed to fetch help for ${mirrorName}:`, error);
-                    console.error('Status:', status);
-                    console.error('Response:', xhr.responseText);
-                }
-            });
+            // 从本地获取对应的 MDX 内容
+            fetch(`/file/${mirrorName}.mdx`)
+                .then(response => response.text())
+                .then(content => {
+                    // 渲染 MDX 内容到悬浮窗
+                    renderMirrorHelp(mirrorName, content);
+                })
+                .catch(error => {
+                    console.error(`Failed to load help content for ${mirrorName}:`, error);
+                    // 加载失败时显示错误信息
+                    renderMirrorHelp(mirrorName, '加载帮助文档失败，请稍后重试。');
+                });
         }
     });
 
@@ -236,15 +220,70 @@ $(document).ready(function () {
         // 执行排序
         sortTable(column, sortConfig.direction);
 
-        // 调试日志
-        console.log('Sorting:', {
-            column,
-            direction: sortConfig.direction
-        });
+      
     });
+
+
+    
+
 });
 
-// 添��筛选表格函数
+// 添加渲染帮助内容的函数
+function renderMirrorHelp(mirrorName, content) {
+    // 找到对应镜像的悬浮窗内容区域
+    const tooltipContent = $(`.help-container[data-mirror="${mirrorName}"] .tooltip-content`);
+    if (tooltipContent.length) {
+        // 设置基本的帮助文档结构
+        tooltipContent.html(`
+            <div class="loading-container markdown-body">
+                <main>
+                    <h3>${mirrorName} 软件仓库镜像使用帮助</h3>
+                    <div class="help-content">
+                        ${formatMarkdown(content)}
+                    </div>
+                </main>
+            </div>
+        `);
+    }
+}
+
+// 修改 Markdown 格式化函数
+function formatMarkdown(content) {
+    // 首先移除 frontmatter
+    content = content.replace(/^---[\s\S]*?---/, '').trim();
+    
+    // 替换变量和特殊标记
+    content = content
+        .replace(/{{http_protocol}}/g, 'https://mirror.iscas.ac.cn')
+        .replace(/{{mirror}}/g, '/mirror')  
+        .replace(/{{enable_checksum}}/g, '')
+        .replace(/\{\{[^}]+\}\}/g, '') 
+        .replace(/\$r/g, '');  
+    
+    // 基本的 Markdown 语法转换
+    return content
+        // 代码块
+        .replace(/```([\s\S]*?)```/g, '<pre class="code-block"><code>$1</code></pre>')
+        // 行内代码
+        .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
+        // 标题
+        .replace(/^### (.*$)/gm, '<h3>$1</h3>')
+        .replace(/^## (.*$)/gm, '<h2>$1</h2>')
+        .replace(/^# (.*$)/gm, '<h1>$1</h1>')
+        // 列表
+        .replace(/^\s*[-*+]\s+(.*)$/gm, '<li>$1</li>')
+        // 段落
+        .replace(/^(?!<[h|l|p|u])(.*$)/gm, '<p>$1</p>')
+        // 链接
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+        // 强调
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+        // 清理空段落
+        .replace(/<p>\s*<\/p>/g, '');
+}
+
+// 添筛选表格函数
 function filterTable() {
     const rows = $('#distro-table tbody tr');
 
@@ -292,7 +331,7 @@ mirror.update = function update() {
             $(statusClass).html(statusMap.get(job.status));
             $(sizeClass).html(job.size);
         }
-        // 更新数据后应用当前的筛选条
+        // 更新数据后应用前的筛选条
         filterTable();
     });
 }
@@ -336,12 +375,9 @@ function createdynamicDom(colCount, data) {
                             <span class="help-text">${job.name} 使用帮助</span>
                             <div class="help-icon">?
                                 <div class="help-tooltip">
-                                    <div class="tooltip-content">
-                                        正在加载镜像源数据...
-                                    </div>
+                                    <div class="tooltip-content"></div>
                                 </div>
-                            </div>
-                        </div>`;
+                            </div>`;
                 } else {
                     td.textContent = 'N/A';
                 }
@@ -389,91 +425,8 @@ function sortTable(column, direction) {
     });
 }
 
-// 更新悬浮框内容的函数
-// 在updateTooltipContent函数中传入mirrorName
 
-function updateTooltipContent(mirrorName, pageProps) {
-    const tooltip = $(`.help-container[data-mirror="${mirrorName}"] .tooltip-content`);
-    const contentObj = JSON.parse(pageProps.content);
-    const mirrorPath = `/${mirrorName}`;
 
-    tooltip.html(`
-        <div class="loading-container">
-            <main>
-                <h3>${pageProps.meta?.title || `${mirrorName} 软件仓库镜像使用帮助`}</h3>
-                <div>
-                    ${generateTooltipContent(contentObj, mirrorPath)}
-                </div>
-            </main>
-        </div>
-    `);
-}
-function generateTooltipContent(targetText, mirrorPath) {
-    let html = '<div class="toolTip-text">';
-    
-    // 递归处理内容
-    function renderContent(content) {
-        if (!content) return '';
-        
-        // 如果是字符串，直接返回
-        if (typeof content === 'string') {
-            return replaceVariables(content, mirrorPath);
-        }
-        
-        // 如果是数组，递归处理每个元素
-        if (Array.isArray(content)) {
-            // 如果是特殊格式的数组 [$r, type, null, {...}]
-            if (content[0] === '$r' && content[1]) {
-                const type = content[1];
-                const props = content[3];
-                
-                switch(type) {
-                    case 'p':
-                        return `<p>${renderContent(props.children)}</p>`;
-                        
-                    case 'h3':
-                        return `<h3>${renderContent(props.children)}</h3>`;
-                        
-                    case 'ul':
-                        return `<ul>${renderContent(props.children)}</ul>`;
-                        
-                    case 'li':
-                        return `<li>${renderContent(props.children)}</li>`;
-                        
-                    case 'code':
-                        return `<code>${renderContent(props.children)}</code>`;
-                        
-                    case 'strong':
-                        return `<strong>${renderContent(props.children)}</strong>`;
-                        
-                    case 'SyntaxHighlight':
-                    case 'CodeBlock':
-                        return `<pre><code class="language-${props.codeLanguage || ''}">${replaceVariables(props.code, mirrorPath)}</code></pre>`;
-                        
-                    case 'a':
-                        return `<a href="${props.href}">${renderContent(props.children)}</a>`;
-                        
-                    default:
-                        return renderContent(props.children);
-                }
-            }
-            
-            // 普通数组，处理每个元素
-            return content.map(item => renderContent(item)).join('');
-        }
-        
-        // 如果是对象，处理其children属性
-        if (content.children) {
-            return renderContent(content.children);
-        }
-        
-        return '';
-    }
-    
-    html += renderContent(targetText);
-    html += '</div>';
-    return html;
-}
 function replaceVariables(text, mirrorPath) {
     if (typeof text !== 'string') return text;
     

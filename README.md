@@ -13,7 +13,12 @@ https://mirrors.nju.edu.cn/
 
 https://mirrors.ustc.edu.cn/
 
-## 所需技能:
-HTML, JavaScript
+## 技术栈:
+html,css,js,jquery
+
+## 其他说明：
+`pip install PyGithub`再执行ref.py文件 递归下载最新mdx文件覆盖到file目录下
+
+
 
 
